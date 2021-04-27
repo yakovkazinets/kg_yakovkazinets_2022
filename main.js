@@ -10,11 +10,9 @@
 'use strict';
 let myarray = [];
 try {
-    /*if (process.argv.length > 2){
-        throw "Usage: node main.js integers split by spaces"
-    };*/
     for (let i = 2; i < process.argv.length; i++){
         var currentnumber = Number(process.argv[i]);
+        //Input validation
         if(typeof currentnumber !== 'number'){
             throw `${process.argv[i] || 'provided variable'} is not a number`;
         }
@@ -24,16 +22,16 @@ try {
         if(!Number.isInteger(currentnumber)){
             throw `${process.argv[i] || 'provided variable'} is not an integer number`;
         }
-        //let currentnumber = process.argv[i];
+        //Create an intial empty string called curr_number_string
         let curr_number_string = "";
-        if (currentnumber == 0){
+        if (currentnumber == 0){ //If it is just 0 as a base case the string becomes 'Zero'
             curr_number_string = "Zero";
         }
-        var modingnumber = currentnumber;
-        while (currentnumber >=1){
-            let temp = modingnumber % 10;
-            let tempstr = curr_number_string;
-            switch(temp){
+        var modingnumber = currentnumber; //to ensure no clashing if the operation occurs on the current working number
+        while (currentnumber >=1){ //If the number is less than 1 algorithm ceases the switch cases and continues onto printing
+            let temp = modingnumber % 10; //temp is a the last integer of the number
+            let tempstr = curr_number_string; //tempstr is equivalent to the curr string value for the arguement
+            switch(temp){ //switchcasing from 0-9
                 case 0:
                     tempstr = "Zero" + curr_number_string;
                     break;
@@ -65,24 +63,23 @@ try {
                     tempstr = "Nine" + curr_number_string;
                     break;
             }
-            curr_number_string = tempstr;
-            currentnumber = Math.floor(currentnumber/10);
-            modingnumber = currentnumber;
+            curr_number_string = tempstr; //update the current string
+            currentnumber = Math.floor(currentnumber/10); //floor the number to ensure not a float
+            modingnumber = currentnumber; //the current number used for modulus is updated as well
         }
-        myarray.push(curr_number_string);
+        myarray.push(curr_number_string); //push back of the array current string value
     }
 } catch (e) {
-    console.log(e);
+    console.log(e); //print out an errors caught with the try catch for arguement inputing
 }
 
-//let myarray = (process.argv[2]);
 let currStr = "";
 for (const i in myarray){
-    if (i == myarray.length-1){
-        currStr += myarray[i];
-    } else {
+    if (i == myarray.length-1){ //if it is the last item it does not need the comma at the end
+        currStr += myarray[i]; 
+    } else {                    //otherwise nomral str is added to the end of currStr for printing
         currStr += myarray[i] + ",";
     }
 }
-console.log(currStr);
+console.log(currStr); //print to stdout using console.log
 process.exit();
